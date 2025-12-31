@@ -89,9 +89,16 @@ spec:
       labels:
         app: db
     spec:
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
       containers:
         - image: mysql:8.0
           name: mysql
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
           resources:
             limits:
               cpu: "500m"
